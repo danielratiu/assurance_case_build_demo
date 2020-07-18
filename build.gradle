@@ -130,6 +130,7 @@ if (project.skipResolveFasten) {
             configurations.mps.resolve().collect { zipTree(it) }
         }
         into fastenDir
+		logger.info "Resolved FASTEN dependencies in home: " + fastenDir.getAbsolutePath()
     }
 }
 
