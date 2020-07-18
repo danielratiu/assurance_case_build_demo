@@ -2,6 +2,8 @@
 <project version="4">
   <component name="MPSProject">
     <projectModules>
+      <modulePath path="$PROJECT_DIR$/solutions/fasten.assurance.demo.build/fasten.assurance.demo.build.msd" folder="infrastructure" />
+      <modulePath path="$PROJECT_DIR$/solutions/fasten.assurance.demo.test/fasten.assurance.demo.test.msd" folder="infrastructure" />
       <modulePath path="$PROJECT_DIR$/solutions/fasten.assurance.demo/fasten.assurance.demo.msd" folder="" />
     </projectModules>
   </component>

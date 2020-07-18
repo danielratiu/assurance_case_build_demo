@@ -109,10 +109,6 @@
       <property role="0lsPB" value="veh_h01" />
       <property role="TrG5h" value="Collision with another vehicle" />
     </node>
-    <node concept="8gVzc" id="3EWkVoQ8TqA" role="8gIbH">
-      <property role="0lsPB" value="cyc_h01" />
-      <property role="TrG5h" value="Collision with cyclists" />
-    </node>
   </node>
 </model>
 
