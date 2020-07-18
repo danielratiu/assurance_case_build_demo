@@ -30,7 +30,7 @@ jobs:
       run: |
         echo "Changing config"
         echo "fastenDir=/home/runner/${FASTEN_VER}" > gradle.properties
-        echo "fastenAssuranceDemoDir=/home/runner/work/assurance_case_build_demo" >> gradle.properties
+        echo "fastenAssuranceDemoDir=/home/runner/work/assurance_case_build_demo/assurance_case_build_demo" >> gradle.properties
         
         echo "Gradle Properties:"
         cat gradle.properties
