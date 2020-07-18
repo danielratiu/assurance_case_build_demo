@@ -108,7 +108,7 @@ def artifactsDir = file("$buildDir/artifacts")
 // ___________________ utilities ___________________
 
 def defaultScriptArgs = [
-        'mps.home'                          : fastenHomeDir,
+        'mps.home'                          : fastenDir,
         'fasten.assurance.demo.home'       : fastenAssuranceDemoDir,
         'build.dir'                         : buildDir,
         'version'                           : version,
