@@ -1,5 +1,5 @@
 
-name: FASTEN_CI
+name: ASSURANCE_CASE_CHECKS_CI
 
 on: [push, pull_request]
 
@@ -29,7 +29,7 @@ jobs:
     - name: Change FASTEN config
       run: |
         echo "Changing config"
-        echo "fastenDir=/home/runner/${FASTEN_VER} > gradle.properties
+        echo "fastenDir=/home/runner/${FASTEN_VER}" > gradle.properties
         echo "fastenAssuranceDemoDir=/home/runner/work/assurance_case_build_demo" >> gradle.properties
         
         echo "Gradle Properties:"
