@@ -1,0 +1,52 @@
+
+name: FASTEN_CI
+
+on: [push, pull_request]
+
+env:
+  FASTEN_VER: "fasten-1.0-SNAPSHOT"
+  FASTEN_ZIP: "https://github.com/danielratiu/assurance_case_build_demo/releases/download/release%2F2020_07_18_fasten_rcp_for_demo/fasten-v2020-07-18-SNAPSHOT.zip"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Download FASTEN
+      run: |
+        echo "Downloading FASTEN"
+        echo ${FASTEN_ZIP}
+        curl -L ${FASTEN_ZIP} > "FASTEN.zip"
+        
+        echo "Unzipping FASTEN"
+        unzip -o "FASTEN.zip" -d ~
+        
+        echo "Creating symbolic link to FASTEN folder"
+        ln -s '/home/runner/${FASTEN_VER}'/ FASTEN
+                
+    - name: Change FASTEN config
+      run: |
+        echo "Changing config"
+        echo "fastenDir=/home/runner/${FASTEN_VER} > gradle.properties
+        echo "fastenAssuranceDemoDir=/home/runner/work/assurance_case_build_demo" >> gradle.properties
+        
+        echo "Gradle Properties:"
+        cat gradle.properties
+      
+    - name: Set up Gradle
+      run: |
+        echo "Setting up gradle build..."
+        sudo apt install openjdk-11-jdk
+        sudo apt install gradle
+        
+        chmod +x ./gradlew
+        
+    - name: Running Gradle build
+      run: |
+        export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        export JB_JAVA11_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        ./gradlew
+      
