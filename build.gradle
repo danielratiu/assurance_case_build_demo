@@ -1,0 +1,133 @@
+import de.itemis.mps.gradle.*
+
+//will pull the groovy classes/types from nexus to the classpath
+buildscript {
+    repositories {
+        maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
+    }
+    dependencies {
+        classpath 'de.itemis.mps:mps-gradle-plugin:1.4+'
+    }
+}
+
+plugins {
+    id 'base'
+    id 'maven-publish'
+    id 'co.riiid.gradle' version '0.4.2'
+}
+
+
+// detect if we are in a CI build
+if (project.hasProperty("forceCI")) {
+    ext.ciBuild = true
+} else {
+    // on teamcity we are in a CI build
+    ext.ciBuild = project.hasProperty("teamcity")
+}
+
+// Detect jdk location, required to start ant with tools.jar on classpath otherwise javac and tests will fail
+def jdk_home
+
+if (ext.has('java11_home')) {
+    jdk_home = ext.get('java11_home')
+} else if (System.getenv('JB_JAVA11_HOME') != null) {
+    jdk_home = System.getenv('JB_JAVA11_HOME')
+} else {
+    def expected = JavaVersion.VERSION_11
+    if (JavaVersion.current() != expected) {
+        throw new GradleException("This build script requires Java 11 but you are currently using ${JavaVersion.current()}.\nWhat you can do:\n"
+                + "  * Use project property java11_home to point to the Java 11 JDK.\n"
+                + "  * Use environment variable JB_JAVA11_HOME to point to the Java 11 JDK\n"
+                + "  * Run Gradle using Java 11")
+    }
+    jdk_home = System.getProperty('java.home')
+}
+
+// Check JDK location
+if (!new File(jdk_home, "lib").exists()) {
+    throw new GradleException("Unable to locate JDK home folder. Detected folder is: $jdk_home")
+}
+
+logger.info 'Using JDK at {}', jdk_home
+
+ext.jdk_home = jdk_home
+
+// Dependency versions
+ext.mpsVersion =  '2020.1.2'
+
+// Project versions
+ext.major = '1'
+ext.minor = '0'
+
+/*
+def userHome = System.properties['user.home']
+def mpsPluginsDirPattern
+if (System.properties['os.name'].toLowerCase().contains('mac')) {
+    mpsPluginsDirPattern = "$userHome/Library/Application Support/%s"
+} else {
+    mpsPluginsDirPattern = "$userHome/.%s/config/plugins"
+}
+
+if (project.hasProperty("MPS_PATHS_SELECTOR")) {
+    ext.mpsPluginsDir = sprintf(mpsPluginsDirPattern, project.getProperty("MPS_PATHS_SELECTOR"))
+} else {
+    ext.mpsPluginsDir = sprintf(mpsPluginsDirPattern, "MPS$mpsMajor")
+}
+*/
+
+
+configurations {
+    mps
+    languageLibs
+    // includes also junit tasks support
+    antLib
+}
+
+dependencies {
+    mps "com.jetbrains:mps:$mpsVersion"
+    //languageLibs "com.mbeddr:platform:$mbeddrVersion"
+    antLib "org.apache.ant:ant-junit:1.10.6"
+}
+
+repositories {
+    mavenLocal()
+    //for (repoUrl in project.dependencyRepositories) {
+    //    maven {
+    //        url repoUrl
+    //    }
+    //}
+    mavenCentral()
+}
+
+// tools needed for compiler support in ant calls
+ext.buildScriptClasspath = project.configurations.antLib.fileCollection { true } +
+        project.files("$project.jdk_home/lib/tools.jar")
+
+def artifactsDir = file("$buildDir/artifacts")
+
+// ___________________ utilities ___________________
+
+def defaultScriptArgs = [
+        'mps.home'                          : fastenHomeDir,
+        'fasten.assurance.demo.home'       : fastenAssuranceDemoDir,
+        'build.dir'                         : buildDir,
+        'version'                           : version,
+        'build.date'                        : new Date(),
+        //incremental build support
+        'mps.generator.skipUnmodifiedModels': true
+]
+
+// enables https://github.com/mbeddr/mps-gradle-plugin#providing-global-defaults
+ext["itemis.mps.gradle.ant.defaultScriptArgs"] = defaultScriptArgs.collect { "-D$it.key=$it.value".toString() }
+ext["itemis.mps.gradle.ant.defaultScriptClasspath"] = buildScriptClasspath
+ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
+
+
+task run_headless_checker(type: TestLanguages) {
+    description "Will execute all tests from command line"
+	script new File("$buildDir/scripts/build-fasten-assurance-checks.xml")
+}
+
+check.dependsOn run_headless_checker
+
+defaultTasks 'run_headless_checker'
