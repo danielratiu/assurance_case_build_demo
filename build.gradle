@@ -114,7 +114,7 @@ repositories {
 }
 
 ext.skipResolveFasten = project.hasProperty('fastenDir')
-ext.fastenHomeDir = rootProject.file(project.findProperty('fastenDir') ?: "$buildDir/mps")
+ext.fastenDir = rootProject.file(project.findProperty('fastenDir') ?: "$buildDir/mps")
 
 if (project.skipResolveFasten) {
     task resolveFasten {
@@ -129,7 +129,7 @@ if (project.skipResolveFasten) {
         from {
             configurations.mps.resolve().collect { zipTree(it) }
         }
-        into fastenHomeDir
+        into fastenDir
     }
 }
 
