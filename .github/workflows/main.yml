@@ -51,6 +51,10 @@ jobs:
         export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
         export JB_JAVA11_HOME=/usr/lib/jvm/java-11-openjdk-amd64
         export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+        
+        # X-server related variable
+        export DISPLAY=:0
+        
         ./gradlew
       
     - name: Checking the if the consistency check failed
