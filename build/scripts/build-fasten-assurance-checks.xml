@@ -41,7 +41,22 @@
   </path>
   
   <target name="assemble" depends="classes, declare-mps-tasks">
-    <mkdir dir="${build.layout}" />
+    <mkdir dir="${build.layout}/assurance.demo.headless.checks" />
+    <mkdir dir="${build.layout}/assurance.demo.headless.checks/META-INF" />
+    <echoxml file="${build.layout}/assurance.demo.headless.checks/META-INF/plugin.xml">
+      <idea-plugin xmlns:xi="http://www.w3.org/2001/XInclude">
+        <id>assurance.demo.headless.checks</id>
+        <name>assurance.demo.headless.checks</name>
+        <version>1</version>
+        <depends>com.mbeddr.formal.base</depends>
+        
+        <extensions defaultExtensionNs="com.intellij">
+          <mps.LanguageLibrary dir="/languages" />
+        </extensions>
+      </idea-plugin>
+    </echoxml>
+    <mkdir dir="${build.layout}/assurance.demo.headless.checks/languages" />
+    <mkdir dir="${build.layout}/assurance.demo.headless.checks/languages/assurance.demo.headless.checks" />
     <mkdir dir="${build.tmp}/default/fasten.assurance.demo.test.jar" />
     <mkdir dir="${build.tmp}/default/fasten.assurance.demo.test.jar/META-INF" />
     <echoxml file="${build.tmp}/default/fasten.assurance.demo.test.jar/META-INF/module.xml">
@@ -80,7 +95,7 @@
         <sources jar="fasten.assurance.demo.test-src.jar" descriptor="fasten.assurance.demo.test.msd" />
       </module>
     </echoxml>
-    <jar destfile="${build.layout}/fasten.assurance.demo.test.jar" duplicate="preserve">
+    <jar destfile="${build.layout}/assurance.demo.headless.checks/languages/assurance.demo.headless.checks/fasten.assurance.demo.test.jar" duplicate="preserve">
       <fileset dir="${build.tmp}/java/out/fasten.assurance.demo.test" />
       <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test" includes="icons/**" />
       <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
@@ -89,7 +104,7 @@
     <copyModels todir="${build.tmp}/customProcessors/copyModels/solutions-fasten.assurance.demo.test-models">
       <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test/models" includes="**/*.mps, **/*.mpsr, **/.model" />
     </copyModels>
-    <jar destfile="${build.layout}/fasten.assurance.demo.test-src.jar" duplicate="preserve">
+    <jar destfile="${build.layout}/assurance.demo.headless.checks/languages/assurance.demo.headless.checks/fasten.assurance.demo.test-src.jar" duplicate="preserve">
       <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test/source_gen">
         <exclude name="**/trace.info" />
         <exclude name="**/exports" />
@@ -423,7 +438,7 @@
       <pathelement location="${artifacts.mps}/plugins/mps-tooltips" />
     </path>
     <pathconvert pathsep="${path.separator}" property="mps.plugins.path.string" refid="mps.plugins.path" />
-    <path location="${build.layout}/fasten.assurance.demo.test.jar" id="mps.tests.path" />
+    <path location="${build.layout}/assurance.demo.headless.checks/languages/assurance.demo.headless.checks/fasten.assurance.demo.test.jar" id="mps.tests.path" />
     <pathconvert pathsep="${path.separator}" property="mps.tests.path.string" refid="mps.tests.path" />
     <patternset id="plugin.deployed.jars">
       <include name="lib/**/*.jar" />
@@ -450,7 +465,7 @@
         <attribute name="Class-Path" value="${manifest.classpath}" />
       </manifest>
     </jar>
-    <junit showoutput="true" fork="true" haltonfailure="false" dir="${basedir}">
+    <junit showoutput="true" fork="true" haltonfailure="true" dir="${basedir}">
       <jvmarg value="-ea" />
       <jvmarg value="-Xss2048k" />
       <jvmarg value="-Xmx1024m" />
