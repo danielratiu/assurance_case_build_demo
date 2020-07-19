@@ -8,6 +8,7 @@
   <property name="fasten.assurance.demo.home" location="${basedir}/../.." />
   <property name="fasten.home" location="${basedir}/../../../fasten-2020-07-18" />
   <property name="fasten.assurance.demo.code" location="${fasten.assurance.demo.home}/code" />
+  <property name="mps.plugins.path" location="${fasten.home}/plugins" />
   <property name="artifacts.mps" location="${fasten.home}" />
   <property name="artifacts.mpsStandalone" location="${fasten.home}" />
   <property name="artifacts.mpsVcs" location="${fasten.home}" />
@@ -40,7 +41,7 @@
     <pathelement location="${artifacts.mps}/lib/log4j.jar" />
   </path>
   
-  <target name="assemble" depends="classes, declare-mps-tasks, fetchDependencies">
+  <target name="assemble" depends="classes, declare-mps-tasks">
     <mkdir dir="${build.layout}" />
     <mkdir dir="${build.tmp}/default/fasten.assurance.demo.test.jar" />
     <mkdir dir="${build.tmp}/default/fasten.assurance.demo.test.jar/META-INF" />
@@ -145,12 +146,6 @@
       <zipfileset file="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/fasten.assurance.demo.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-fasten.assurance.demo-models" prefix="module/models" />
     </jar>
-    <copy todir="${build.layout}">
-      <fileset dir="${artifacts.com.mbeddr.formal.languages}" />
-    </copy>
-    <copy todir="${build.layout}">
-      <fileset dir="${artifacts.com.mbeddr.platform}" />
-    </copy>
     <echo file="${build.layout}/build.properties">mps.build.number=${mps.build.number}${line.separator}mps.date=${mps.date}${line.separator}mps.build.vcs.number=${mps.build.vcs.number}${line.separator}mps.teamcity.buildConfName=${mps.teamcity.buildConfName}${line.separator}mps.idea.platform.build.number=${mps.idea.platform.build.number}${line.separator}mps.mps.build.counter=${mps.mps.build.counter}${line.separator}mpsBootstrapCore.version=${mpsBootstrapCore.version}${line.separator}com.mbeddr.platform.major.version=${com.mbeddr.platform.major.version}${line.separator}com.mbeddr.platform.minor.version=${com.mbeddr.platform.minor.version}${line.separator}com.mbeddr.platform.build=${com.mbeddr.platform.build}${line.separator}com.mbeddr.platform.mbeddr.version=${com.mbeddr.platform.mbeddr.version}${line.separator}de.itemis.mps.extensions.versionNumber=${de.itemis.mps.extensions.versionNumber}${line.separator}com.mbeddr.formal.languages.version=${com.mbeddr.formal.languages.version}</echo>
   </target>
   
@@ -380,6 +375,7 @@
       <macro name="fasten.assurance.demo.home" path="${fasten.assurance.demo.home}" />
       <macro name="fasten.home" path="${fasten.home}" />
       <macro name="fasten.assurance.demo.code" path="${fasten.assurance.demo.code}" />
+      <macro name="mps.plugins.path" path="${mps.plugins.path}" />
     </generate>
   </target>
   
@@ -492,6 +488,13 @@
         <fileset dir="${artifacts.com.mbeddr.platform}/mps-multiline/lib" includes="diff_match_patch.jar" />
       </classpath>
     </javac>
+  </target>
+  
+  <target name="layout.mps">
+    <mkdir dir="${build.layout.mps}/plugins" />
+    <copy todir="${build.layout.mps}/plugins">
+      <fileset dir="${fasten.home}/plugins" />
+    </copy>
   </target>
   
   <target name="test.all" depends="assemble">
