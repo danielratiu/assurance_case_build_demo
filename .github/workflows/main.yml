@@ -57,4 +57,5 @@ jobs:
       run: |
         TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/assurance_case_build_demo/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
         TEST_FAILURE_MARKER="[junit] Test jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0 FAILED"
-        if [ ! -z $(grep "$TEST_FAILURE_MARKER" "$TEST_RESULTS_FILE") ]; then exit 1; fi
+        cat ${TEST_RESULTS_FILE}
+        if [ ! -z $(grep "$TEST_FAILURE_MARKER" "$TEST_RESULTS_FILE") ]; then echo "CONSISTENCY CHECK TEST FAILED!"; exit 1; fi
