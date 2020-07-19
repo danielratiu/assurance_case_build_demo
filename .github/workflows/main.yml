@@ -52,7 +52,8 @@ jobs:
         export JB_JAVA11_HOME=/usr/lib/jvm/java-11-openjdk-amd64
         export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
         
-        # X-server related variable
+        # X-server
+        Xvfb :0 &
         export DISPLAY=:0
         
         ./gradlew
