@@ -412,6 +412,15 @@
         </node>
       </node>
     </node>
+    <node concept="398rNT" id="3EWkVoQodPU" role="1l3spd">
+      <property role="TrG5h" value="mps.plugins.path" />
+      <node concept="398BVA" id="3EWkVoQodQm" role="398pKh">
+        <ref role="398BVh" node="11AgPCyJtQn" resolve="fasten.home" />
+        <node concept="2Ry0Ak" id="3EWkVoQodQr" role="iGT6I">
+          <property role="2Ry0Am" value="plugins" />
+        </node>
+      </node>
+    </node>
     <node concept="1X3_iC" id="2KnQqNoKsGE" role="lGtFl">
       <property role="3V$3am" value="macros" />
       <property role="3V$3ak" value="798100da-4f0a-421a-b991-71f8c50ce5d2/5617550519002745363/5617550519002745378" />
