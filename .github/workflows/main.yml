@@ -66,6 +66,9 @@ jobs:
         ls -al ..
         
         ./gradlew
+        
+        echo "### Content of the build/artifacts directory ###"
+        ls -alR build/artifacts
       
     - name: Checking the if the consistency check failed
       run: |
