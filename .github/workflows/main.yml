@@ -25,7 +25,7 @@ jobs:
         unzip -o "FASTEN.zip" -d ~
         
         echo "Creating symbolic link to FASTEN folder"
-        ln -s '/home/runner/${FASTEN_VER}'/ FASTEN
+        ln -s "/home/runner/${FASTEN_VER}/" FASTEN
                 
     - name: Change FASTEN config
       run: |
