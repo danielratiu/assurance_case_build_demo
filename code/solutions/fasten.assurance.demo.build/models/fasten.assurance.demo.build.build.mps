@@ -11,6 +11,7 @@
     <import index="ffeo" ref="r:874d959d-e3b4-4d04-b931-ca849af130dd(jetbrains.mps.ide.build)" />
     <import index="al5i" ref="r:742f344d-4dc4-4862-992c-4bc94b094870(com.mbeddr.mpsutil.dev.build)" />
     <import index="r4a2" ref="r:c3566e6b-a5e5-48f9-99d7-fc25ee01c1dd(com.mbeddr.formal.safety.build)" />
+    <import index="90a9" ref="r:fb24ac52-5985-4947-bba9-25be6fd32c1a(de.itemis.mps.extensions.build)" />
   </imports>
   <registry>
     <language id="3600cb0a-44dd-4a5b-9968-22924406419e" name="jetbrains.mps.build.mps.tests">
@@ -521,14 +522,23 @@
         <ref role="22LTRN" node="11AgPCyJtS$" resolve="fasten.assurance.demo.test" />
       </node>
       <node concept="24cAiW" id="11AgPCyJtUm" role="24cAkG">
+        <node concept="24YFd4" id="3EWkVoQotXz" role="24YFd7">
+          <ref role="24YFd5" to="r4a2:1uyUeTt3ODd" resolve="com.mbeddr.formal.base" />
+        </node>
+        <node concept="24YFd4" id="3EWkVoQotXJ" role="24YFd7">
+          <ref role="24YFd5" to="r4a2:42jqVeFkUv3" resolve="com.mbeddr.formal.nusmv" />
+        </node>
         <node concept="24YFd4" id="11AgPCyKRY_" role="24YFd7">
           <ref role="24YFd5" to="r4a2:7he_lUurrgx" resolve="com.mbeddr.formal.safety" />
         </node>
-        <node concept="24YFd4" id="11AgPCyKRYT" role="24YFd7">
-          <ref role="24YFd5" to="r4a2:1uyUeTt3ODd" resolve="com.mbeddr.formal.base" />
-        </node>
         <node concept="24YFd4" id="3EWkVoQlMSX" role="24YFd7">
           <ref role="24YFd5" to="r4a2:7he_lUumO49" resolve="com.mbeddr.formal.req" />
+        </node>
+        <node concept="24YFd4" id="3EWkVoQotYm" role="24YFd7">
+          <ref role="24YFd5" to="r4a2:7he_lUuoSVd" resolve="com.mbeddr.formal.spin" />
+        </node>
+        <node concept="24YFd4" id="3EWkVoQoudU" role="24YFd7">
+          <ref role="24YFd5" to="90a9:4be$WTb1MZD" resolve="de.itemis.mps.editor.diagram" />
         </node>
         <node concept="NbPM2" id="3EWkVoQletA" role="24c_eh">
           <node concept="3Mxwew" id="3EWkVoQlErn" role="3MwsjC">
