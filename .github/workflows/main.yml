@@ -6,7 +6,7 @@ on: [push, pull_request]
 env:
   FASTEN_VER: "fasten-2020-07-18"
   FASTEN_ZIP: "https://github.com/danielratiu/assurance_case_build_demo/releases/download/release%2F2020_07_18_fasten_rcp_for_demo/fasten-2020-07-18.zip"
-  ASSURANCE_CASE_DIR: "/home/runner/work/assurance_case_build_demo"
+  ASSURANCE_CASE_DIR: "/home/runner/work/assurance_case_build_demo/assurance_case_build_demo"
 
 jobs:
   build:
@@ -72,7 +72,7 @@ jobs:
       
     - name: Checking if the consistency check failed
       run: |
-        TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/assurance_case_build_demo/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
+        TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
         TEST_FAILURE_MARKER="[junit] Test jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0 FAILED"
         cat ${TEST_RESULTS_FILE}
         if [ ! -z $(grep "$TEST_FAILURE_MARKER" "$TEST_RESULTS_FILE") ]; then echo "CONSISTENCY CHECK TEST FAILED!"; exit 1; fi

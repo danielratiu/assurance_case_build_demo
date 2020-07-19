@@ -607,7 +607,7 @@
     </node>
   </node>
   <node concept="2XOHcx" id="11AgPCyH4i9">
-    <property role="2XOHcw" value="${fasten.assurance.demo.home}/assurance_case_build_demo/code" />
+    <property role="2XOHcw" value="${fasten.assurance.demo.home}/code" />
   </node>
 </model>
 
