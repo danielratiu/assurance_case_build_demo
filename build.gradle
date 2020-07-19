@@ -62,6 +62,7 @@ logger.info 'Repository username: {}', project.nexusUsername
 ext.dependencyRepositories = [
         'https://projects.itemis.de/nexus/content/repositories/mbeddr',
         'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots',
+		'https://mvnrepository.com/artifact/org.apache.ant/ant-launcher',
 ]
 
 
@@ -100,7 +101,7 @@ configurations {
 dependencies {
     mps "com.jetbrains:mps:$mpsVersion"
     //languageLibs "com.mbeddr:platform:$mbeddrVersion"
-    //antLib "org.apache.ant:ant-junit:1.10.6"
+    antLib "org.apache.ant:ant-junit:1.10.6"
 }
 
 repositories {
