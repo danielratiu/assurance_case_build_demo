@@ -44,6 +44,9 @@
         <property id="927724900262033861" name="generateDebugInfo" index="2_Ic$$" />
         <property id="6998860900671147996" name="javaLevel" index="TZNOO" />
       </concept>
+      <concept id="2750015747481074431" name="jetbrains.mps.build.structure.BuildLayout_Files" flags="ng" index="2HvfSZ">
+        <child id="2750015747481074432" name="path" index="2HvfZ0" />
+      </concept>
       <concept id="4380385936562003279" name="jetbrains.mps.build.structure.BuildString" flags="ng" index="NbPM2">
         <child id="4903714810883783243" name="parts" index="3MwsjC" />
       </concept>
@@ -75,9 +78,6 @@
       </concept>
       <concept id="4701820937132344003" name="jetbrains.mps.build.structure.BuildLayout_Container" flags="ng" index="1y1bJS">
         <child id="7389400916848037006" name="children" index="39821P" />
-      </concept>
-      <concept id="5610619299013057363" name="jetbrains.mps.build.structure.BuildLayout_ImportContent" flags="ng" index="3ygNvl">
-        <reference id="5610619299013057365" name="target" index="3ygNvj" />
       </concept>
       <concept id="841011766566059607" name="jetbrains.mps.build.structure.BuildStringNotEmpty" flags="ng" index="3_J27D" />
       <concept id="5248329904287794596" name="jetbrains.mps.build.structure.BuildInputFiles" flags="ng" index="3LXTmp">
@@ -458,12 +458,13 @@
       <node concept="L2wRC" id="3EWkVoQlMS_" role="39821P">
         <ref role="L2wRA" node="3EWkVoQlMR2" resolve="fasten.assurance.demo" />
       </node>
-      <node concept="3PtdJl" id="3EWkVoQo8iK" role="39821P">
-        <node concept="3ygNvl" id="3EWkVoQo8iP" role="39821P">
-          <ref role="3ygNvj" to="r4a2:42jqVeFkUvc" />
-        </node>
-        <node concept="3ygNvl" id="3EWkVoQo8j1" role="39821P">
-          <ref role="3ygNvj" to="al5i:3AVJcIMlF9x" />
+      <node concept="3PtdJl" id="3EWkVoQo8iK" role="39821P" />
+      <node concept="2HvfSZ" id="3EWkVoQodPe" role="39821P">
+        <node concept="398BVA" id="3EWkVoQodPn" role="2HvfZ0">
+          <ref role="398BVh" node="11AgPCyJtQn" resolve="fasten.home" />
+          <node concept="2Ry0Ak" id="3EWkVoQodPt" role="iGT6I">
+            <property role="2Ry0Am" value="plugins" />
+          </node>
         </node>
       </node>
     </node>
