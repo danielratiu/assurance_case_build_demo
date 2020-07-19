@@ -361,6 +361,20 @@
       <property role="TrG5h" value="_010_headless_sandbox_checker" />
       <node concept="3cqZAl" id="11AgPCyH4ic" role="3clF45" />
       <node concept="3clFbS" id="11AgPCyH4id" role="3clF47">
+        <node concept="3clFbF" id="3EWkVoQlFoI" role="3cqZAp">
+          <node concept="2OqwBi" id="3EWkVoQlFoF" role="3clFbG">
+            <node concept="10M0yZ" id="3EWkVoQlFoG" role="2Oq$k0">
+              <ref role="1PxDUh" to="wyt6:~System" resolve="System" />
+              <ref role="3cqZAo" to="wyt6:~System.out" resolve="out" />
+            </node>
+            <node concept="liA8E" id="3EWkVoQlFoH" role="2OqNvi">
+              <ref role="37wK5l" to="guwi:~PrintStream.println(java.lang.String)" resolve="println" />
+              <node concept="Xl_RD" id="3EWkVoQlFQf" role="37wK5m">
+                <property role="Xl_RC" value="Entering the test" />
+              </node>
+            </node>
+          </node>
+        </node>
         <node concept="3cpWs8" id="11AgPCyHzlG" role="3cqZAp">
           <node concept="3cpWsn" id="11AgPCyHzlH" role="3cpWs9">
             <property role="TrG5h" value="repo" />
@@ -607,7 +621,7 @@
     </node>
   </node>
   <node concept="2XOHcx" id="11AgPCyH4i9">
-    <property role="2XOHcw" value="${fasten.assurance.demo.home}/code" />
+    <property role="2XOHcw" value="/home/runner/work/assurance_case_build_demo/assurance_case_build_demo/code" />
   </node>
 </model>
 
