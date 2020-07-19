@@ -6,13 +6,13 @@
   <property name="build.tmp" location="${build.dir}/tmp/fasten.assurance.demo.checks" />
   <property name="build.layout" location="${build.dir}/artifacts/fasten.assurance.demo.checks" />
   <property name="fasten.assurance.demo.home" location="${basedir}/../.." />
-  <property name="fasten.home" location="${basedir}/../../../fasten-ul4600-2020-07-15" />
+  <property name="fasten.home" location="${basedir}/../../../fasten-2020-07-18" />
   <property name="fasten.assurance.demo.code" location="${fasten.assurance.demo.home}/code" />
   <property name="artifacts.mps" location="${fasten.home}" />
   <property name="artifacts.mpsStandalone" location="${fasten.home}" />
   <property name="artifacts.mpsVcs" location="${fasten.home}" />
-  <property name="artifacts.com.mbeddr.platform" location="${fasten.home}/plugins" />
-  <property name="artifacts.com.mbeddr.formal.languages" location="${fasten.home}/plugins" />
+  <property name="artifacts.com.mbeddr.platform" location="${fasten.home}" />
+  <property name="artifacts.com.mbeddr.formal.languages" location="${fasten.home}" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property file="${artifacts.com.mbeddr.platform}/build.properties" prefix="import.com.mbeddr.platform" />
   <property file="${artifacts.com.mbeddr.formal.languages}/build.properties" prefix="import.com.mbeddr.formal.languages" />
@@ -99,6 +99,52 @@
       <zipfileset file="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test/fasten.assurance.demo.test.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-fasten.assurance.demo.test-models" prefix="module/models" />
     </jar>
+    <mkdir dir="${build.tmp}/default/fasten.assurance.demo.jar" />
+    <mkdir dir="${build.tmp}/default/fasten.assurance.demo.jar/META-INF" />
+    <echoxml file="${build.tmp}/default/fasten.assurance.demo.jar/META-INF/module.xml">
+      <module namespace="fasten.assurance.demo" type="solution" uuid="46094fab-170a-4fcb-9613-0c0ca132a035">
+        <dependencies>
+          <module ref="dc038ceb-b7ea-4fea-ac12-55f7400e97ba(de.slisson.mps.editor.multiline.runtime)" kind="rt" />
+        </dependencies>
+        <uses>
+          <language id="l:0deccdfd-196b-4d8c-895e-0d6cb8014dfd:com.mbeddr.formal.req.base" />
+          <language id="l:83ad0200-6e50-4939-a389-76bf899be11b:com.mbeddr.formal.req.nusmv" />
+          <language id="l:5ff577d1-1817-495b-9d6c-ff7b52c68609:com.mbeddr.formal.req.tl_patterns" />
+          <language id="l:0054a0d7-50ff-4b4f-beff-7e9b376d56a1:com.mbeddr.formal.req.tl_patterns.arch" />
+          <language id="l:b9f682be-3e03-4c97-ba0a-ac14cf89f12a:com.mbeddr.formal.req.tl_patterns.nusmv" />
+          <language id="l:e8a04d94-4307-4f88-95a2-25f7c4f39437:com.mbeddr.formal.safety.gsn" />
+          <language id="l:5e7ffa70-8e23-49f4-8c13-a887bba14c36:com.mbeddr.formal.safety.gsn.external_evidence" />
+          <language id="l:17da266c-02d9-4bbd-b69b-8a656b49f45c:com.mbeddr.formal.safety.hara" />
+          <language id="l:a798113f-e2cd-4e21-a8e2-ca1903cb9c43:com.mbeddr.formal.safety.iso26262" />
+          <language id="l:434b2bfb-bd7a-47c9-bced-b445035e6d96:com.mbeddr.formal.safety.req" />
+          <language id="l:7e777b53-0a6b-4719-b36d-10475788d49f:com.mbeddr.formal.safety.stamp" />
+          <language id="l:8ca79d43-eb45-4791-bdd4-0d6130ff895b:de.itemis.mps.editor.diagram.layout" />
+          <language id="l:92d2ea16-5a42-4fdf-a676-c7604efe3504:de.slisson.mps.richtext" />
+        </uses>
+        <classpath>
+          <entry path="." />
+        </classpath>
+        <sources jar="fasten.assurance.demo-src.jar" descriptor="fasten.assurance.demo.msd" />
+      </module>
+    </echoxml>
+    <jar destfile="${build.layout}/fasten.assurance.demo.jar" duplicate="preserve">
+      <fileset dir="${build.tmp}/java/out/fasten.assurance.demo" />
+      <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/source_gen" includes="**/trace.info, **/exports, **/*.mps, **/checkpoints" />
+      <fileset dir="${build.tmp}/default/fasten.assurance.demo.jar" />
+    </jar>
+    <copyModels todir="${build.tmp}/customProcessors/copyModels/solutions-fasten.assurance.demo-models">
+      <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/models" includes="**/*.mps, **/*.mpsr, **/.model" />
+    </copyModels>
+    <jar destfile="${build.layout}/fasten.assurance.demo-src.jar" duplicate="preserve">
+      <fileset dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/source_gen">
+        <exclude name="**/trace.info" />
+        <exclude name="**/exports" />
+        <exclude name="**/checkpoints" />
+        <exclude name="**/*.mps" />
+      </fileset>
+      <zipfileset file="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/fasten.assurance.demo.msd" prefix="module" />
+      <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-fasten.assurance.demo-models" prefix="module/models" />
+    </jar>
     <echo file="${build.layout}/build.properties">mps.build.number=${mps.build.number}${line.separator}mps.date=${mps.date}${line.separator}mps.build.vcs.number=${mps.build.vcs.number}${line.separator}mps.teamcity.buildConfName=${mps.teamcity.buildConfName}${line.separator}mps.idea.platform.build.number=${mps.idea.platform.build.number}${line.separator}mps.mps.build.counter=${mps.mps.build.counter}${line.separator}mpsBootstrapCore.version=${mpsBootstrapCore.version}${line.separator}com.mbeddr.platform.major.version=${com.mbeddr.platform.major.version}${line.separator}com.mbeddr.platform.minor.version=${com.mbeddr.platform.minor.version}${line.separator}com.mbeddr.platform.build=${com.mbeddr.platform.build}${line.separator}com.mbeddr.platform.mbeddr.version=${com.mbeddr.platform.mbeddr.version}${line.separator}de.itemis.mps.extensions.versionNumber=${de.itemis.mps.extensions.versionNumber}${line.separator}com.mbeddr.formal.languages.version=${com.mbeddr.formal.languages.version}</echo>
   </target>
   
@@ -115,7 +161,7 @@
     <delete dir="${build.layout}" />
   </target>
   
-  <target name="compileJava" depends="java.compile.fasten.assurance.demo.test" />
+  <target name="compileJava" depends="java.compile.fasten.assurance.demo.test, java.compile.fasten.assurance.demo" />
   
   <target name="processResources" />
   
@@ -128,8 +174,104 @@
   <target name="generate" depends="declare-mps-tasks, fetchDependencies">
     <echo message="generating" />
     <generate strictMode="false" parallelMode="true" parallelThreads="8" useInplaceTransform="true" hideWarnings="false" createStaticRefs="true" fork="true" targetJavaVersion="1.8" skipUnmodifiedModels="${mps.generator.skipUnmodifiedModels}">
+      <plugin path="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base" />
+      <plugin path="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv" />
+      <plugin path="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req" />
+      <plugin path="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety" />
+      <plugin path="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.spin" />
+      <plugin path="${artifacts.com.mbeddr.formal.languages}/com.mpsbasics" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.common" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.editor.querylist" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.filepicker" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.genreview" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.infrastructure.misc" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.jfreechart" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.jung" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.plantuml" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.suppresswarning" />
+      <plugin path="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.treenotations" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de-itemis-mps-selection" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.60.mps.libs" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.itemis.mps.blutil" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.itemis.mps.celllayout" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.diagram" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.widgets" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.itemis.mps.tooltips" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.itemis.mps.utils" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.slisson.mps.conditionalEditor" />
+      <plugin path="${artifacts.com.mbeddr.platform}/de.slisson.mps.hacks" />
+      <plugin path="${artifacts.com.mbeddr.platform}/mbeddr.platform" />
+      <plugin path="${artifacts.com.mbeddr.platform}/mps-apache-commons" />
+      <plugin path="${artifacts.com.mbeddr.platform}/mps-multiline" />
+      <plugin path="${artifacts.com.mbeddr.platform}/mps-richtext" />
+      <plugin path="${artifacts.com.mbeddr.platform}/mps-tables" />
+      <plugin path="${artifacts.mps}/lib/mps-workbench.jar" />
+      <plugin path="${artifacts.mps}/plugins/mps-build" />
       <plugin path="${artifacts.mps}/plugins/mps-core" />
+      <plugin path="${artifacts.mps}/plugins/mps-httpsupport" />
       <plugin path="${artifacts.mps}/plugins/mps-testing" />
+      <plugin path="${artifacts.mps}/plugins/mps-tooltips" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.fasten.base.msc.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.analyses.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.arch.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.expressions.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.operatorspanel.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.pluginSolution.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.tabular.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.tooling.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.arch.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.cbd.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.cbd.pluginSolution.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.ext.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.pluginSolution.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.sm.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.source.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.tabular.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.tests.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req/languages/com.mbeddr.formal.req.devkit/fasten.requirements.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req/languages/com.mbeddr.formal.req/com.mbeddr.formal.req.base.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req/languages/com.mbeddr.formal.req/com.mbeddr.formal.req.nusmv.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req/languages/com.mbeddr.formal.req/com.mbeddr.formal.req.tl_patterns.arch.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req/languages/com.mbeddr.formal.req/com.mbeddr.formal.req.tl_patterns.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.req/languages/com.mbeddr.formal.req/com.mbeddr.formal.req.tl_patterns.nusmv.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/com.mbeddr.formal.safety/com.mbeddr.formal.safety.gsn.external_evidence.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/com.mbeddr.formal.safety/com.mbeddr.formal.safety.gsn.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/com.mbeddr.formal.safety/com.mbeddr.formal.safety.hara.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/com.mbeddr.formal.safety/com.mbeddr.formal.safety.iso26262.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/com.mbeddr.formal.safety/com.mbeddr.formal.safety.req.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/com.mbeddr.formal.safety/com.mbeddr.formal.safety.stamp.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/fasten.safety.devkit/fasten.safety.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/fasten.safety.gsn.devkit/fasten.safety.gsn.jar" />
+      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.safety/languages/fasten.safety.hara.devkit/fasten.safety.hara.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.editor.querylist/languages/group.editor.querylist/com.mbeddr.mpsutil.editor.querylist.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.filepicker/languages/group.filepicker/com.mbeddr.mpsutil.filepicker.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.genreview/languages/group.genreview/com.mbeddr.mpsutil.genreview.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.jfreechart/languages/group.jfreechart/com.mbeddr.mpsutil.jfreechart.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.treenotations/languages/group.treenotation/com.mbeddr.mpsutil.treenotation.styles.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de-itemis-mps-selection/languages/de.itemis.mps.selection/de.itemis.mps.selection.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.60.mps.libs/languages/de.q60.mps.libs/de.q60.mps.libs.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.celllayout/languages/de.itemis.mps.celllayout/de.itemis.mps.editor.celllayout.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.celllayout/languages/de.itemis.mps.celllayout/de.itemis.mps.editor.celllayout.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.celllayout/languages/de.itemis.mps.celllayout/de.itemis.mps.editor.celllayout.styles.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.diagram/languages/de.itemis.mps.editor.diagram/de.itemis.mps.editor.diagram.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.diagram/languages/de.itemis.mps.editor.diagram/de.itemis.mps.editor.diagram.layout.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.diagram/languages/de.itemis.mps.editor.diagram/de.itemis.mps.editor.diagram.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.diagram/languages/de.itemis.mps.editor.diagram/de.itemis.mps.editor.diagram.shapes.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.diagram/languages/de.itemis.mps.editor.diagram/de.itemis.mps.editor.diagram.styles.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.widgets/languages/de.itemis.mps.editor.widgets/de.itemis.mps.editor.collapsible.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.editor.widgets/languages/de.itemis.mps.editor.widgets/de.itemis.mps.mouselistener.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.itemis.mps.tooltips/languages/de.itemis.mps.tooltips/de.itemis.mps.tooltips.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.slisson.mps.conditionalEditor/languages/de.slisson.mps.conditionalEditor/de.slisson.mps.conditionalEditor.hints.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.slisson.mps.conditionalEditor/languages/de.slisson.mps.conditionalEditor/de.slisson.mps.conditionalEditor.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.slisson.mps.hacks/languages/de.slisson.mps.hacks/de.slisson.mps.hacks.editor.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/de.slisson.mps.hacks/languages/de.slisson.mps.hacks/de.slisson.mps.reflection.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/mps-apache-commons/languages/mps-apache-commons-math/org.apache.commons.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/mps-multiline/languages/mps-multiline/de.slisson.mps.editor.multiline.runtime.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/mps-richtext/languages/mps-richtext/de.slisson.mps.richtext.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/mps-tables/languages/mps-tables/de.slisson.mps.tables.jar" />
+      <library file="${artifacts.com.mbeddr.platform}/mps-tables/languages/mps-tables/de.slisson.mps.tables.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/closures.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/collections.runtime.jar" />
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguage.blTypes.jar" />
@@ -150,6 +292,8 @@
       <library file="${artifacts.mps}/languages/baseLanguage/jetbrains.mps.baseLanguageInternal.jar" />
       <library file="${artifacts.mps}/languages/editor/jetbrains.mps.editor.runtime.jar" />
       <library file="${artifacts.mps}/languages/editor/jetbrains.mps.editorlang.runtime.jar" />
+      <library file="${artifacts.mps}/languages/editor/jetbrains.mps.ide.editor.jar" />
+      <library file="${artifacts.mps}/languages/editor/typesystemIntegration.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.baseLanguage.lightweightdsl.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.actions.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.behavior.jar" />
@@ -164,6 +308,7 @@
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.dataFlow.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.descriptor.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.editor.jar" />
+      <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.extension.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.findUsages.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.generator.generationContext.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.generator.jar" />
@@ -176,6 +321,7 @@
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.quotation.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.refactoring.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.resources.jar" />
+      <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.scopes.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.scopes.runtime.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.script.jar" />
       <library file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.sharedConcepts.jar" />
@@ -218,6 +364,7 @@
       <library file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.matcher.jar" />
       <library file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
       <chunk>
+        <module file="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/fasten.assurance.demo.msd" />
         <module file="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test/fasten.assurance.demo.test.msd" />
       </chunk>
       <jvmargs>
@@ -290,6 +437,53 @@
         <fileset file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.matcher.jar" />
         <fileset file="${artifacts.mps}/plugins/mps-testing/languages/languageDesign/jetbrains.mps.lang.test.runtime.jar" />
         <fileset file="${artifacts.mps}/languages/languageDesign/jetbrains.mps.lang.traceable.jar" />
+      </classpath>
+    </javac>
+  </target>
+  
+  <target name="java.compile.fasten.assurance.demo" depends="fetchDependencies">
+    <mkdir dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/source_gen" />
+    <mkdir dir="${build.tmp}/java/out/fasten.assurance.demo" />
+    <javac destdir="${build.tmp}/java/out/fasten.assurance.demo" fork="false" encoding="utf8" includeantruntime="false" debug="true" source="1.8" target="1.8">
+      <compilerarg value="-Xlint:none" />
+      <src>
+        <path location="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/source_gen" />
+      </src>
+      <classpath>
+        <fileset file="${artifacts.mps}/lib/mps-core.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-annotations.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-openapi.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-context.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-platform.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-logging.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-closures.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-collections.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-tuples.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-references.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-behavior-api.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-behavior-runtime.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-messaging.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-boot-util.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-constraints-runtime.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-editor.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-editor-api.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-editor-runtime.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-generator.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-persistence.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-environment.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-project-check.jar" />
+        <fileset file="${artifacts.mps}/lib/mps-textgen.jar" />
+        <fileset file="${artifacts.mps}/lib/annotations.jar" />
+        <fileset dir="${artifacts.mps}/lib" includes="*.jar" />
+        <fileset file="${artifacts.mps}/lib/log4j.jar" />
+        <fileset file="${artifacts.mps}/lib/jdom.jar" />
+        <fileset file="${artifacts.mps}/lib/trove4j.jar" />
+        <fileset file="${artifacts.mps}/lib/ecj-4.13.jar" />
+        <fileset file="${artifacts.com.mbeddr.platform}/de.itemis.mps.celllayout/languages/de.itemis.mps.celllayout/de.itemis.mps.editor.celllayout.runtime.jar" />
+        <fileset file="${artifacts.com.mbeddr.platform}/de.itemis.mps.celllayout/languages/de.itemis.mps.celllayout/de.itemis.mps.editor.celllayout.styles.jar" />
+        <fileset file="${artifacts.com.mbeddr.platform}/mps-multiline/languages/mps-multiline/de.slisson.mps.editor.multiline.runtime.jar" />
+        <fileset file="${artifacts.com.mbeddr.platform}/de.slisson.mps.hacks/languages/de.slisson.mps.hacks/de.slisson.mps.hacks.editor.jar" />
+        <fileset dir="${artifacts.com.mbeddr.platform}/mps-multiline/lib" includes="diff_match_patch.jar" />
       </classpath>
     </javac>
   </target>
@@ -450,7 +644,7 @@
         <attribute name="Class-Path" value="${manifest.classpath}" />
       </manifest>
     </jar>
-    <junit showoutput="true" fork="true" haltonfailure="true" dir="${basedir}">
+    <junit showoutput="true" fork="true" haltonfailure="false" dir="${basedir}">
       <jvmarg value="-ea" />
       <jvmarg value="-Xss2048k" />
       <jvmarg value="-Xmx1024m" />
@@ -477,6 +671,7 @@
   </target>
   
   <target name="cleanSources">
+    <delete dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/source_gen" />
     <delete dir="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo.test/source_gen" />
   </target>
 </project>
