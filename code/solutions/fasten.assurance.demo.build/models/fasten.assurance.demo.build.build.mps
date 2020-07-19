@@ -112,16 +112,14 @@
         <child id="6592112598314499021" name="name" index="m$_yQ" />
         <child id="6592112598314855574" name="containerName" index="m_cZH" />
       </concept>
-      <concept id="6592112598314498926" name="jetbrains.mps.build.mps.structure.BuildMpsLayout_Plugin" flags="ng" index="m$_wl">
-        <reference id="6592112598314801433" name="plugin" index="m_rDy" />
-        <child id="3570488090019868128" name="packagingType" index="pUk7w" />
-      </concept>
       <concept id="6592112598314499027" name="jetbrains.mps.build.mps.structure.BuildMps_IdeaPluginDependency" flags="ng" index="m$_yC">
         <reference id="6592112598314499066" name="target" index="m$_y1" />
       </concept>
-      <concept id="3570488090019868065" name="jetbrains.mps.build.mps.structure.BuildMpsLayout_AutoPluginLayoutType" flags="ng" index="pUk6x" />
       <concept id="1500819558095907805" name="jetbrains.mps.build.mps.structure.BuildMps_Group" flags="ng" index="2G$12M">
         <child id="1500819558095907806" name="modules" index="2G$12L" />
+      </concept>
+      <concept id="1265949165890536423" name="jetbrains.mps.build.mps.structure.BuildMpsLayout_ModuleJars" flags="ng" index="L2wRC">
+        <reference id="1265949165890536425" name="module" index="L2wRA" />
       </concept>
       <concept id="868032131020265945" name="jetbrains.mps.build.mps.structure.BuildMPSPlugin" flags="ng" index="3b7kt6" />
       <concept id="5253498789149381388" name="jetbrains.mps.build.mps.structure.BuildMps_Module" flags="ng" index="3bQrTs">
@@ -411,9 +409,8 @@
     </node>
     <node concept="55IIr" id="11AgPCyH3Sf" role="auvoZ" />
     <node concept="1l3spV" id="11AgPCyH3Sg" role="1l3spN">
-      <node concept="m$_wl" id="3EWkVoQlev9" role="39821P">
-        <ref role="m_rDy" node="3EWkVoQleuf" resolve="assurance.demo.headless.checks" />
-        <node concept="pUk6x" id="3EWkVoQlevd" role="pUk7w" />
+      <node concept="L2wRC" id="3EWkVoQltxb" role="39821P">
+        <ref role="L2wRA" node="11AgPCyJtS$" resolve="fasten.assurance.demo.test" />
       </node>
     </node>
     <node concept="10PD9b" id="11AgPCyH3Sh" role="10PD9s" />
