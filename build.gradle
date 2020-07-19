@@ -116,7 +116,7 @@ repositories {
 ext.skipResolveFasten = project.hasProperty('fastenDir')
 ext.fastenDir = rootProject.file(project.findProperty('fastenDir') ?: "$buildDir/mps")
 
-if (project.skipResolveFasten) {
+if (ext.skipResolveFasten) {
     task resolveFasten {
         doLast {
             logger.info "FASTEN resolution skipped"
