@@ -76,6 +76,9 @@
       <concept id="4701820937132344003" name="jetbrains.mps.build.structure.BuildLayout_Container" flags="ng" index="1y1bJS">
         <child id="7389400916848037006" name="children" index="39821P" />
       </concept>
+      <concept id="5610619299013057363" name="jetbrains.mps.build.structure.BuildLayout_ImportContent" flags="ng" index="3ygNvl">
+        <reference id="5610619299013057365" name="target" index="3ygNvj" />
+      </concept>
       <concept id="841011766566059607" name="jetbrains.mps.build.structure.BuildStringNotEmpty" flags="ng" index="3_J27D" />
       <concept id="5248329904287794596" name="jetbrains.mps.build.structure.BuildInputFiles" flags="ng" index="3LXTmp">
         <child id="5248329904287794598" name="dir" index="3LXTmr" />
@@ -155,6 +158,7 @@
         <property id="322010710375892619" name="uuid" index="3LESm3" />
         <child id="322010710375956261" name="path" index="3LF7KH" />
       </concept>
+      <concept id="3335207478148059730" name="jetbrains.mps.build.mps.structure.BuildMpsLayout_ModuleJarContent" flags="ng" index="3PtdJl" />
       <concept id="7259033139236285166" name="jetbrains.mps.build.mps.structure.BuildMps_ExtractedModuleDependency" flags="nn" index="1SiIV0">
         <child id="7259033139236285167" name="dependency" index="1SiIV1" />
       </concept>
@@ -453,6 +457,14 @@
       </node>
       <node concept="L2wRC" id="3EWkVoQlMS_" role="39821P">
         <ref role="L2wRA" node="3EWkVoQlMR2" resolve="fasten.assurance.demo" />
+      </node>
+      <node concept="3PtdJl" id="3EWkVoQo8iK" role="39821P">
+        <node concept="3ygNvl" id="3EWkVoQo8iP" role="39821P">
+          <ref role="3ygNvj" to="r4a2:42jqVeFkUvc" />
+        </node>
+        <node concept="3ygNvl" id="3EWkVoQo8j1" role="39821P">
+          <ref role="3ygNvj" to="al5i:3AVJcIMlF9x" />
+        </node>
       </node>
     </node>
     <node concept="10PD9b" id="11AgPCyH3Sh" role="10PD9s" />

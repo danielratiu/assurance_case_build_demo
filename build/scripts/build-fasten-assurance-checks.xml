@@ -40,7 +40,7 @@
     <pathelement location="${artifacts.mps}/lib/log4j.jar" />
   </path>
   
-  <target name="assemble" depends="classes, declare-mps-tasks">
+  <target name="assemble" depends="classes, declare-mps-tasks, fetchDependencies">
     <mkdir dir="${build.layout}" />
     <mkdir dir="${build.tmp}/default/fasten.assurance.demo.test.jar" />
     <mkdir dir="${build.tmp}/default/fasten.assurance.demo.test.jar/META-INF" />
@@ -145,6 +145,12 @@
       <zipfileset file="${fasten.assurance.demo.code}/solutions/fasten.assurance.demo/fasten.assurance.demo.msd" prefix="module" />
       <zipfileset dir="${build.tmp}/customProcessors/copyModels/solutions-fasten.assurance.demo-models" prefix="module/models" />
     </jar>
+    <copy todir="${build.layout}">
+      <fileset dir="${artifacts.com.mbeddr.formal.languages}" />
+    </copy>
+    <copy todir="${build.layout}">
+      <fileset dir="${artifacts.com.mbeddr.platform}" />
+    </copy>
     <echo file="${build.layout}/build.properties">mps.build.number=${mps.build.number}${line.separator}mps.date=${mps.date}${line.separator}mps.build.vcs.number=${mps.build.vcs.number}${line.separator}mps.teamcity.buildConfName=${mps.teamcity.buildConfName}${line.separator}mps.idea.platform.build.number=${mps.idea.platform.build.number}${line.separator}mps.mps.build.counter=${mps.mps.build.counter}${line.separator}mpsBootstrapCore.version=${mpsBootstrapCore.version}${line.separator}com.mbeddr.platform.major.version=${com.mbeddr.platform.major.version}${line.separator}com.mbeddr.platform.minor.version=${com.mbeddr.platform.minor.version}${line.separator}com.mbeddr.platform.build=${com.mbeddr.platform.build}${line.separator}com.mbeddr.platform.mbeddr.version=${com.mbeddr.platform.mbeddr.version}${line.separator}de.itemis.mps.extensions.versionNumber=${de.itemis.mps.extensions.versionNumber}${line.separator}com.mbeddr.formal.languages.version=${com.mbeddr.formal.languages.version}</echo>
   </target>
   
