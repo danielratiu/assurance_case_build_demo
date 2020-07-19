@@ -68,8 +68,9 @@ jobs:
         ./gradlew
         
         echo "### Content of the build/artifacts directory ###"
-        ls -alR build/artifacts
-      
+        ls -al .
+        ls -alR build/
+        
     - name: Checking if the consistency check failed
       run: |
         TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
