@@ -70,7 +70,7 @@ jobs:
         echo "### Content of the build/artifacts directory ###"
         ls -alR build/artifacts
       
-    - name: Checking the if the consistency check failed
+    - name: Checking if the consistency check failed
       run: |
         TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/assurance_case_build_demo/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
         TEST_FAILURE_MARKER="[junit] Test jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0 FAILED"
