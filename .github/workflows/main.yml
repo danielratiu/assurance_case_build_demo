@@ -6,6 +6,7 @@ on: [push, pull_request]
 env:
   FASTEN_VER: "fasten-2020-07-18"
   FASTEN_ZIP: "https://github.com/danielratiu/assurance_case_build_demo/releases/download/release%2F2020_07_18_fasten_rcp_for_demo/fasten-2020-07-18.zip"
+  ASSURANCE_CASE_DIR: "/home/runner/work/assurance_case_build_demo"
 
 jobs:
   build:
@@ -32,7 +33,7 @@ jobs:
         echo "fastenDir=/home/runner/${FASTEN_VER}" > gradle.properties
         echo "mps.home=/home/runner/${FASTEN_VER}" >> gradle.properties
         echo "mpsHomeDir=/home/runner/${FASTEN_VER}" > gradle.properties
-        echo "fastenAssuranceDemoDir=/home/runner/work/assurance_case_build_demo" >> gradle.properties
+        echo "fastenAssuranceDemoDir=${ASSURANCE_CASE_DIR}" >> gradle.properties
         
         echo "Gradle Properties:"
         cat gradle.properties
@@ -52,3 +53,8 @@ jobs:
         export JDK_HOME=/usr/lib/jvm/java-11-openjdk-amd64
         ./gradlew
       
+    - name: Checking the if the consistency check failed
+      run: |
+        TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
+        TEST_FAILURE_MARKER="[junit] Test jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0 FAILED"
+        if [ ! -z $(grep "$TEST_FAILURE_MARKER" "$TEST_RESULTS_FILE") ]; then exit 1; fi
