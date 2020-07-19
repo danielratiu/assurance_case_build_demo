@@ -56,6 +56,9 @@ jobs:
         Xvfb :0 &
         export DISPLAY=:0
         
+        echo "Current path from where we start gradlew: "
+        pwd
+        
         ./gradlew
       
     - name: Checking the if the consistency check failed
