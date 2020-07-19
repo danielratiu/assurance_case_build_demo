@@ -12,8 +12,8 @@
   <property name="artifacts.mps" location="${fasten.home}" />
   <property name="artifacts.mpsStandalone" location="${fasten.home}" />
   <property name="artifacts.mpsVcs" location="${fasten.home}" />
-  <property name="artifacts.com.mbeddr.platform" location="${basedir}/../../../../fasten-2020-07-18/plugins" />
-  <property name="artifacts.com.mbeddr.formal.languages" location="${basedir}/../../../../fasten-2020-07-18/plugins" />
+  <property name="artifacts.com.mbeddr.platform" location="${basedir}/../../../../../fasten-2020-07-18/plugins" />
+  <property name="artifacts.com.mbeddr.formal.languages" location="${basedir}/../../../../../fasten-2020-07-18/plugins" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property file="${artifacts.com.mbeddr.platform}/build.properties" prefix="import.com.mbeddr.platform" />
   <property file="${artifacts.com.mbeddr.formal.languages}/build.properties" prefix="import.com.mbeddr.formal.languages" />
