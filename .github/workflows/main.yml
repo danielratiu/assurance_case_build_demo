@@ -55,6 +55,6 @@ jobs:
       
     - name: Checking the if the consistency check failed
       run: |
-        TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
+        TEST_RESULTS_FILE="${ASSURANCE_CASE_DIR}/assurance_case_build_demo/build/scripts/TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all.xml"
         TEST_FAILURE_MARKER="[junit] Test jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0 FAILED"
         if [ ! -z $(grep "$TEST_FAILURE_MARKER" "$TEST_RESULTS_FILE") ]; then exit 1; fi
