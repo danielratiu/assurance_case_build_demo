@@ -1,6 +1,5 @@
 import de.itemis.mps.gradle.*
 
-//will pull the groovy classes/types from nexus to the classpath
 buildscript {
     repositories {
         maven { url 'https://projects.itemis.de/nexus/content/repositories/mbeddr' }
@@ -16,14 +15,6 @@ plugins {
     id 'co.riiid.gradle' version '0.4.2'
 }
 
-
-// detect if we are in a CI build
-if (project.hasProperty("forceCI")) {
-    ext.ciBuild = true
-} else {
-    // on teamcity we are in a CI build
-    ext.ciBuild = project.hasProperty("teamcity")
-}
 
 // Detect jdk location, required to start ant with tools.jar on classpath otherwise javac and tests will fail
 def jdk_home
@@ -52,13 +43,6 @@ logger.info 'Using JDK at {}', jdk_home
 
 ext.jdk_home = jdk_home
 
-// Default repository credentials
-if (!project.hasProperty('nexusUsername')) {
-    ext.nexusUsername = ''
-    ext.nexusPassword = ''
-}
-logger.info 'Repository username: {}', project.nexusUsername
-
 ext.dependencyRepositories = [
         'https://projects.itemis.de/nexus/content/repositories/mbeddr',
         'https://projects.itemis.de/nexus/content/repositories/mbeddr_snapshots',
@@ -74,33 +58,14 @@ ext.mbeddrVersion =  '2020.1.+'
 ext.major = '1'
 ext.minor = '0'
 
-/*
-def userHome = System.properties['user.home']
-def mpsPluginsDirPattern
-if (System.properties['os.name'].toLowerCase().contains('mac')) {
-    mpsPluginsDirPattern = "$userHome/Library/Application Support/%s"
-} else {
-    mpsPluginsDirPattern = "$userHome/.%s/config/plugins"
-}
-
-if (project.hasProperty("MPS_PATHS_SELECTOR")) {
-    ext.mpsPluginsDir = sprintf(mpsPluginsDirPattern, project.getProperty("MPS_PATHS_SELECTOR"))
-} else {
-    ext.mpsPluginsDir = sprintf(mpsPluginsDirPattern, "MPS$mpsMajor")
-}
-*/
-
-
 configurations {
     mps
     languageLibs
-    // includes also junit tasks support
     antLib
 }
 
 dependencies {
     mps "com.jetbrains:mps:$mpsVersion"
-    //languageLibs "com.mbeddr:platform:$mbeddrVersion"
     antLib "org.apache.ant:ant-junit:1.10.6"
 }
 
@@ -112,27 +77,6 @@ repositories {
         }
     }
     mavenCentral()
-}
-
-ext.skipResolveFasten = project.hasProperty('fastenDir')
-ext.fastenDir = rootProject.file(project.findProperty('fastenDir') ?: "$buildDir/mps")
-
-if (ext.skipResolveFasten) {
-    task resolveFasten {
-        doLast {
-            logger.info "FASTEN resolution skipped"
-            logger.info "FASTEN home: " + fastenDir.getAbsolutePath()
-        }
-    }
-} else {
-    task resolveFasten(type: Copy) {
-        dependsOn configurations.mps
-        from {
-            configurations.mps.resolve().collect { zipTree(it) }
-        }
-        into fastenDir
-		logger.info "Resolved FASTEN dependencies in home: " + fastenDir.getAbsolutePath()
-    }
 }
 
 // tools needed for compiler support in ant calls
@@ -160,11 +104,9 @@ ext["itemis.mps.gradle.ant.defaultScriptClasspath"] = buildScriptClasspath
 ext["itemis.mps.gradle.ant.defaultJavaExecutable"] = new File(jdk_home, 'bin/java')
 
 
-task run_headless_checker(type: TestLanguages, dependsOn: resolveFasten) {
+task run_headless_checker(type: TestLanguages) {
     description "Will execute all tests from command line"
 	script new File("$buildDir/scripts/build-fasten-assurance-checks.xml")
 }
-
-check.dependsOn run_headless_checker
 
 defaultTasks 'run_headless_checker'

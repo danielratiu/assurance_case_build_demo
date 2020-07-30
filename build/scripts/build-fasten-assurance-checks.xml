@@ -6,14 +6,15 @@
   <property name="build.tmp" location="${build.dir}/tmp/fasten.assurance.demo.checks" />
   <property name="build.layout" location="${build.dir}/artifacts/fasten.assurance.demo.checks" />
   <property name="fasten.assurance.demo.home" location="${basedir}/../.." />
-  <property name="fasten.home" location="${basedir}/../../../fasten-2020-07-18" />
+  <property name="fasten.home" location="${basedir}/../../../fasten-2020-07-28" />
   <property name="fasten.assurance.demo.code" location="${fasten.assurance.demo.home}/code" />
   <property name="mps.plugins.path" location="${fasten.home}/plugins" />
+  <property name="mps.macro.fasten.assurance.demo.home" location="${fasten.assurance.demo.home}" />
   <property name="artifacts.mps" location="${fasten.home}" />
   <property name="artifacts.mpsStandalone" location="${fasten.home}" />
   <property name="artifacts.mpsVcs" location="${fasten.home}" />
-  <property name="artifacts.com.mbeddr.platform" location="${basedir}/../../../../../fasten-2020-07-18/plugins" />
-  <property name="artifacts.com.mbeddr.formal.languages" location="${basedir}/../../../../../fasten-2020-07-18/plugins" />
+  <property name="artifacts.com.mbeddr.platform" location="${fasten.home}/plugins" />
+  <property name="artifacts.com.mbeddr.formal.languages" location="${fasten.home}/plugins" />
   <property file="${artifacts.mps}/build.properties" prefix="import.mps" />
   <property file="${artifacts.com.mbeddr.platform}/build.properties" prefix="import.com.mbeddr.platform" />
   <property file="${artifacts.com.mbeddr.formal.languages}/build.properties" prefix="import.com.mbeddr.formal.languages" />
@@ -217,14 +218,10 @@
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.arch.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.expressions.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.jar" />
-      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.operatorspanel.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.pluginSolution.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.tabular.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.base/languages/com.mbeddr.formal.base/com.mbeddr.formal.base.tooling.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.arch.jar" />
-      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.cbd.jar" />
-      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.cbd.pluginSolution.jar" />
-      <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.ext.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.pluginSolution.jar" />
       <library file="${artifacts.com.mbeddr.formal.languages}/com.mbeddr.formal.nusmv/languages/com.mbeddr.formal.nusmv/com.mbeddr.formal.nusmv.sm.jar" />
@@ -249,7 +246,6 @@
       <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.editor.querylist/languages/group.editor.querylist/com.mbeddr.mpsutil.editor.querylist.runtime.jar" />
       <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.filepicker/languages/group.filepicker/com.mbeddr.mpsutil.filepicker.jar" />
       <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.genreview/languages/group.genreview/com.mbeddr.mpsutil.genreview.jar" />
-      <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.jfreechart/languages/group.jfreechart/com.mbeddr.mpsutil.jfreechart.runtime.jar" />
       <library file="${artifacts.com.mbeddr.platform}/com.mbeddr.mpsutil.treenotations/languages/group.treenotation/com.mbeddr.mpsutil.treenotation.styles.jar" />
       <library file="${artifacts.com.mbeddr.platform}/de-itemis-mps-selection/languages/de.itemis.mps.selection/de.itemis.mps.selection.runtime.jar" />
       <library file="${artifacts.com.mbeddr.platform}/de.60.mps.libs/languages/de.q60.mps.libs/de.q60.mps.libs.jar" />
@@ -376,6 +372,7 @@
       <macro name="fasten.home" path="${fasten.home}" />
       <macro name="fasten.assurance.demo.code" path="${fasten.assurance.demo.code}" />
       <macro name="mps.plugins.path" path="${mps.plugins.path}" />
+      <macro name="mps.macro.fasten.assurance.demo.home" path="${mps.macro.fasten.assurance.demo.home}" />
     </generate>
   </target>
   
@@ -666,6 +663,7 @@
       <sysproperty key="mps.libraries" value="${mps.libraries.path.string}" />
       <sysproperty key="mps.test.modules" value="${mps.tests.path.string}" />
       
+      <sysproperty key="mps.macro.fasten.assurance.demo.home" value="${fasten.assurance.demo.home}" />
       
       <test name="jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0" outfile="TEST-jetbrains.mps.testbench.junit.suites.AntModuleTestSuite0-all" />
       <formatter type="xml" />
