@@ -32,7 +32,7 @@ jobs:
         echo "Changing config"
         echo "fastenDir=/home/runner/${FASTEN_VER}" > gradle.properties
         echo "mps.home=/home/runner/${FASTEN_VER}" >> gradle.properties
-        echo "mpsHomeDir=/home/runner/${FASTEN_VER}" > gradle.properties
+        echo "mpsHomeDir=/home/runner/${FASTEN_VER}" >> gradle.properties
         echo "fastenAssuranceDemoDir=${ASSURANCE_CASE_DIR}" >> gradle.properties
         
         echo "Gradle Properties:"
