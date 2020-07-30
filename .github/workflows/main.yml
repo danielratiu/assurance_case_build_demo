@@ -58,11 +58,11 @@ jobs:
         echo "Current path from where we start gradlew: "
         pwd
         
-        echo "### Content of the current directory ###"
-        ls -al
+        #echo "### Content of the current directory ###"
+        #ls -al
         
-        echo "### Content of the parent directory ###"
-        ls -al ..
+        #echo "### Content of the parent directory ###"
+        #ls -al ..
         
         ./gradlew
         
