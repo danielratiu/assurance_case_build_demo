@@ -5,7 +5,7 @@ on: [push, pull_request]
 
 env:
   FASTEN_VER: "fasten-2020-07-28"
-  FASTEN_ZIP: "https://github.com/mbeddr/mbeddr.formal/releases/download/snapshot%2Fv2020_07_28/fasten-2020-07-28.zip"
+  FASTEN_ZIP: "https://github.com/danielratiu/assurance_case_build_demo/releases/download/release%2F2020_07_28_fasten_rcp_for_demo/fasten-2020-07-28.zip"
   ASSURANCE_CASE_DIR: "/home/runner/work/assurance_case_build_demo/assurance_case_build_demo"
 
 jobs:
